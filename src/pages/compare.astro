@@ -1,0 +1,38 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'compare' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned compare articles:
+// - Viator vs Klook vs KKday → compare/viator-vs-klook-vs-kkday
+// - Everland vs Lotte World → compare/everland-vs-lotte-world
+---
+
+<HubLayout
+  title="Compare"
+  description="Side-by-side comparisons of booking platforms, tour operators, and travel options for Korea."
+  breadcrumbs={[{ name: 'Compare', url: '/compare/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Comparisons" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Comparisons are coming soon. In the meantime:</p>
+      <RelatedGuides guides={[
+        { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood" },
+        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+      ]} />
+    </div>
+  )}
+</HubLayout>

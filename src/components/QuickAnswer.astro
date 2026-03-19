@@ -1,0 +1,30 @@
+---
+interface Props {
+  answer: string;
+  bestFor?: string;
+  notIdealFor?: string;
+}
+
+const { answer, bestFor, notIdealFor } = Astro.props;
+---
+
+<aside class="bg-blue-50 border-l-4 border-primary rounded-r-lg p-5 mb-8">
+  <p class="font-semibold text-sm text-primary uppercase tracking-wide mb-2">Quick Answer</p>
+  <p class="text-text leading-relaxed">{answer}</p>
+  {(bestFor || notIdealFor) && (
+    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+      {bestFor && (
+        <div>
+          <p class="font-medium text-green-700">Best for:</p>
+          <p class="text-text-muted">{bestFor}</p>
+        </div>
+      )}
+      {notIdealFor && (
+        <div>
+          <p class="font-medium text-red-700">Not ideal for:</p>
+          <p class="text-text-muted">{notIdealFor}</p>
+        </div>
+      )}
+    </div>
+  )}
+</aside>

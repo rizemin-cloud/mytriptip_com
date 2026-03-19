@@ -1,0 +1,50 @@
+---
+interface DestinationCard {
+  title: string;
+  href: string;
+  description: string;
+  image?: string;
+  articleCount?: number;
+}
+
+interface Props {
+  destinations: DestinationCard[];
+  heading?: string;
+}
+
+const { destinations, heading } = Astro.props;
+---
+
+<section class="mb-12">
+  {heading && <h2 class="text-2xl font-semibold mb-6">{heading}</h2>}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {destinations.map(({ title, href, description, image, articleCount }) => (
+      <a
+        href={href}
+        class="group block border border-border rounded-lg overflow-hidden hover:shadow-md transition-all"
+      >
+        {image ? (
+          <div class="h-40 overflow-hidden">
+            <img
+              src={image}
+              alt={title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div class="h-40 bg-surface-alt flex items-center justify-center">
+            <span class="text-3xl font-bold text-text-muted/30">{title}</span>
+          </div>
+        )}
+        <div class="p-4">
+          <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">{title}</h3>
+          <p class="text-sm text-text-muted mt-1 leading-relaxed">{description}</p>
+          {articleCount !== undefined && (
+            <p class="text-xs text-text-muted mt-2">{articleCount} guides</p>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

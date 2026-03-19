@@ -1,0 +1,59 @@
+---
+import { organizationSchema } from '../utils/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://mytriptip.com';
+const {
+  title,
+  description,
+  canonical = new URL(Astro.url.pathname, siteUrl).toString(),
+  ogImage = `${siteUrl}/images/og-default.jpg`,
+  ogType = 'website',
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title === 'MyTripTip' ? title : `${title} | MyTripTip`;
+const orgSchema = organizationSchema(siteUrl);
+const allSchemas = jsonLd
+  ? Array.isArray(jsonLd) ? [orgSchema, ...jsonLd] : [orgSchema, jsonLd]
+  : [orgSchema];
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="MyTripTip" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Structured Data -->
+{allSchemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

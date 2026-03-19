@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import type { BreadcrumbItem } from '../utils/seo';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const { data } = article;
+
+const destinationLabels: Record<string, string> = {
+  seoul: 'Seoul',
+  busan: 'Busan',
+  jeju: 'Jeju',
+  korea: 'Korea',
+};
+
+const categoryLabels: Record<string, string> = {
+  'where-to-stay': 'Where to Stay',
+  'tours-tickets': 'Tours & Tickets',
+  transport: 'Transport',
+  'sim-money': 'SIM & Money',
+  itineraries: 'Itineraries',
+  compare: 'Compare',
+  'travel-basics': 'Travel Basics',
+};
+
+const categoryUrls: Record<string, string> = {
+  'where-to-stay': '/where-to-stay/',
+  'tours-tickets': '/tours-tickets/',
+  transport: '/transport/',
+  'sim-money': '/sim-money/',
+  itineraries: '/itineraries/',
+  compare: '/compare/',
+  'travel-basics': '/travel-basics/',
+};
+
+const isDestinationSpecific = data.destination !== 'korea';
+
+const breadcrumbs: BreadcrumbItem[] = [
+  isDestinationSpecific
+    ? {
+        name: destinationLabels[data.destination] ?? data.destination,
+        url: `/${data.destination}/`,
+      }
+    : {
+        name: categoryLabels[data.category] ?? data.category,
+        url: categoryUrls[data.category] ?? '/',
+      },
+  {
+    name: data.title,
+    url: `/${article.id}/`,
+  },
+];
+---
+
+<ArticleLayout
+  title={data.title}
+  description={data.description}
+  author={data.author}
+  publishDate={data.publishDate}
+  updatedDate={data.updatedDate}
+  destination={data.destination}
+  monetizationType={data.monetizationType}
+  featuredImage={data.featuredImage}
+  breadcrumbs={breadcrumbs}
+>
+  <Content />
+</ArticleLayout>

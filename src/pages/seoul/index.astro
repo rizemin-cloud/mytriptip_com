@@ -1,0 +1,41 @@
+---
+import HubLayout from '../../layouts/HubLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.destination === 'seoul' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned Seoul articles (add to guides as they are published):
+// - Best Family Hotels in Seoul → seoul/best-family-hotels
+// - ICN Airport to Seoul → seoul/icn-airport-to-seoul
+// - Best DMZ Tours from Seoul → seoul/best-dmz-tours
+// - 4 Days in Seoul → seoul/4-days-itinerary
+---
+
+<HubLayout
+  title="Seoul Travel Guide"
+  description="Everything a first-time visitor needs to know about Seoul — where to stay, how to get from the airport, top tours, and nightlife."
+  breadcrumbs={[{ name: 'Seoul', url: '/seoul/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Seoul Guides" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Seoul guides are coming soon. In the meantime, start with these:</p>
+      <RelatedGuides guides={[
+        { title: "Where to Stay in Korea", href: "/where-to-stay/", description: "Best areas and hotels by destination" },
+        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+      ]} />
+    </div>
+  )}
+</HubLayout>

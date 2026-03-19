@@ -1,0 +1,60 @@
+---
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  { label: 'About', href: '/about/' },
+  { label: 'Editorial Policy', href: '/editorial-policy/' },
+  { label: 'Affiliate Disclosure', href: '/affiliate-disclosure/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+const siteLinks = [
+  { label: 'Start Here', href: '/start-here/' },
+  { label: 'Seoul', href: '/seoul/' },
+  { label: 'Busan', href: '/busan/' },
+  { label: 'Jeju', href: '/jeju/' },
+  { label: 'Where to Stay', href: '/where-to-stay/' },
+  { label: 'Tours & Tickets', href: '/tours-tickets/' },
+  { label: 'Travel Basics', href: '/travel-basics/' },
+];
+---
+
+<footer class="bg-surface border-t border-border mt-16">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-bold text-lg text-primary mb-2">MyTripTip</p>
+        <p class="text-sm text-text-muted leading-relaxed">
+          Practical Korea travel guides for first-time visitors. We help you decide where to stay, how to get around, and what to book.
+        </p>
+      </div>
+      <div>
+        <p class="font-semibold text-sm mb-3">Explore</p>
+        <ul class="space-y-2">
+          {siteLinks.map(({ label, href }) => (
+            <li>
+              <a href={href} class="text-sm text-text-muted hover:text-primary transition-colors">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-sm mb-3">About This Site</p>
+        <ul class="space-y-2">
+          {footerLinks.map(({ label, href }) => (
+            <li>
+              <a href={href} class="text-sm text-text-muted hover:text-primary transition-colors">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-border text-center text-xs text-text-muted">
+      <p>&copy; {year} MyTripTip. All rights reserved.</p>
+      <p class="mt-1">
+        Some links on this site are affiliate links. We may earn a commission at no extra cost to you.
+        <a href="/affiliate-disclosure/" class="underline hover:text-primary">Learn more</a>.
+      </p>
+    </div>
+  </div>
+</footer>

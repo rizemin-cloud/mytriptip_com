@@ -1,0 +1,38 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'sim-money' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned SIM & Money articles:
+// - Korea eSIM for Seoul → seoul/esim-for-seoul
+// - T-money Card Guide → basics/t-money-card-guide
+---
+
+<HubLayout
+  title="SIM & Money"
+  description="eSIM, pocket WiFi, T-money cards, and budgeting tips for Korea. Get connected and manage your travel money."
+  breadcrumbs={[{ name: 'SIM & Money', url: '/sim-money/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="SIM & Money Guides" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">SIM & Money guides are coming soon. In the meantime:</p>
+      <RelatedGuides guides={[
+        { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood" },
+        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+      ]} />
+    </div>
+  )}
+</HubLayout>

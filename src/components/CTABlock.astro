@@ -1,0 +1,57 @@
+---
+import { getPartner, buildAffiliateUrl } from '../utils/affiliates';
+
+interface Props {
+  href: string;
+  label: string;
+  sublabel?: string;
+  partner?: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { href: rawHref, label, sublabel, partner, variant = 'primary' } = Astro.props;
+
+// Resolve placeholder affiliate links to working URLs
+let resolvedHref = rawHref;
+let isSponsored = false;
+
+const placeholderMatch = rawHref.match(/^YOUR_AFFILIATE_LINK_(\w+)$/);
+if (placeholderMatch) {
+  const key = placeholderMatch[1].toLowerCase();
+  const partnerConfig = getPartner(key);
+  if (partnerConfig) {
+    if (!partnerConfig.trackingId.startsWith('YOUR_')) {
+      // Real affiliate ID configured — use tracked affiliate URL
+      resolvedHref = buildAffiliateUrl(key);
+      isSponsored = true;
+    } else {
+      // No real ID yet — link to partner's official homepage
+      resolvedHref = partnerConfig.baseUrl;
+    }
+  }
+} else if (rawHref.startsWith('http')) {
+  isSponsored = true;
+}
+
+const rel = isSponsored
+  ? 'noopener noreferrer nofollow sponsored'
+  : 'noopener noreferrer nofollow';
+---
+
+<div class="my-8 rounded-lg border border-border p-6 text-center bg-surface">
+  {partner && <p class="text-xs text-text-muted mb-1">via {partner}</p>}
+  <a
+    href={resolvedHref}
+    target="_blank"
+    rel={rel}
+    class:list={[
+      'inline-block px-8 py-3 rounded-lg font-semibold text-base transition-colors',
+      variant === 'primary'
+        ? 'bg-accent text-white hover:bg-accent-dark'
+        : 'bg-white text-primary border border-primary hover:bg-blue-50',
+    ]}
+  >
+    {label}
+  </a>
+  {sublabel && <p class="mt-2 text-xs text-text-muted">{sublabel}</p>}
+</div>

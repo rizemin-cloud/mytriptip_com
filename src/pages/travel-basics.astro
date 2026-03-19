@@ -1,0 +1,42 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'travel-basics' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned travel-basics articles:
+// - Best Time to Visit Korea → basics/best-time-to-visit
+// - Korea Travel Budget → basics/travel-budget
+// - T-money Card Guide → basics/t-money-card-guide
+
+const crossLinks = [
+  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood" },
+  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Compare hotel booking platforms" },
+];
+---
+
+<HubLayout
+  title="Travel Basics"
+  description="Essential Korea travel information — best time to visit, travel budget, transit cards, tipping, and more."
+  breadcrumbs={[{ name: 'Travel Basics', url: '/travel-basics/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Travel Basics" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Travel basics guides are coming soon. Start planning your Korea trip with these:</p>
+      <RelatedGuides guides={crossLinks} heading="Helpful Guides" />
+    </div>
+  )}
+</HubLayout>

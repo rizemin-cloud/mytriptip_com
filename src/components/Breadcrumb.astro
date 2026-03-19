@@ -1,0 +1,37 @@
+---
+import { breadcrumbSchema, type BreadcrumbItem } from '../utils/seo';
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://mytriptip.com';
+const { items } = Astro.props;
+
+const fullItems: BreadcrumbItem[] = [
+  { name: 'Home', url: `${siteUrl}/` },
+  ...items.map((item) => ({
+    ...item,
+    url: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
+  })),
+];
+
+const schema = breadcrumbSchema(fullItems);
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-text-muted mb-4">
+  <ol class="flex flex-wrap items-center gap-1">
+    {fullItems.map((item, i) => (
+      <li class="flex items-center gap-1">
+        {i > 0 && <span aria-hidden="true">/</span>}
+        {i < fullItems.length - 1 ? (
+          <a href={item.url} class="hover:text-primary transition-colors">{item.name}</a>
+        ) : (
+          <span class="text-text">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ArticleMeta from '../components/ArticleMeta.astro';
+import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
+import { articleSchema } from '../utils/seo';
+import type { BreadcrumbItem } from '../utils/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  author: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  destination: string;
+  monetizationType: string;
+  featuredImage?: string;
+  ogImage?: string;
+  breadcrumbs: BreadcrumbItem[];
+}
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://mytriptip.com';
+const {
+  title,
+  description,
+  author,
+  publishDate,
+  updatedDate,
+  monetizationType,
+  featuredImage,
+  ogImage,
+  breadcrumbs,
+} = Astro.props;
+
+const hasAffiliates = ['hotel', 'tour', 'sim', 'mixed'].includes(monetizationType);
+
+const schema = articleSchema({
+  title,
+  description,
+  url: new URL(Astro.url.pathname, siteUrl).toString(),
+  image: ogImage ?? featuredImage,
+  publishDate: publishDate.toISOString(),
+  updatedDate: updatedDate?.toISOString(),
+  author,
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  jsonLd={schema}
+>
+  <article class="mx-auto max-w-3xl px-4 py-8">
+    <Breadcrumb items={breadcrumbs} />
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-4">{title}</h1>
+    <ArticleMeta author={author} publishDate={publishDate} updatedDate={updatedDate} />
+    {hasAffiliates && <AffiliateDisclosure compact />}
+    {featuredImage && (
+      <img
+        src={featuredImage}
+        alt={title}
+        class="w-full rounded-lg mb-8"
+        loading="eager"
+      />
+    )}
+    <div class="prose prose-slate max-w-none">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

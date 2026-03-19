@@ -1,0 +1,42 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'transport' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned transport articles:
+// - ICN Airport to Seoul → seoul/icn-airport-to-seoul
+// - Seoul to Busan → busan/seoul-to-busan
+// - T-money Card Guide → basics/t-money-card-guide
+
+const crossLinks = [
+  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood near transit" },
+  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected for navigation apps" },
+  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Compare hotel booking platforms" },
+];
+---
+
+<HubLayout
+  title="Getting Around Korea"
+  description="Airport transfers, intercity trains, buses, and transit cards. Everything you need to move around Korea confidently."
+  breadcrumbs={[{ name: 'Transport', url: '/transport/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Transport Guides" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Transport guides are coming soon. Start planning your Korea trip with these:</p>
+      <RelatedGuides guides={crossLinks} heading="Helpful Guides" />
+    </div>
+  )}
+</HubLayout>

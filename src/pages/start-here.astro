@@ -1,0 +1,25 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+
+const essentials = [
+  { title: 'Where to Stay in Seoul', href: '/seoul/', description: 'Pick the right neighborhood and hotel for your budget' },
+  { title: 'Korea eSIM vs Pocket WiFi', href: '/sim-money/', description: 'Stay connected from the moment you land' },
+  { title: 'Best Tours & Day Trips', href: '/tours-tickets/', description: 'DMZ, Nami Island, and more — what to book in advance' },
+  { title: 'Getting Around Korea', href: '/transport/', description: 'Trains, buses, T-money cards, and airport transfers' },
+];
+
+const planning = [
+  { title: 'Travel Budget Guide', href: '/travel-basics/', description: 'How much Korea actually costs for 5, 7, or 10 days' },
+  { title: 'Seoul + Busan or Seoul + Jeju?', href: '/itineraries/', description: 'Build the right route for your trip length' },
+  { title: 'Compare Booking Platforms', href: '/compare/', description: 'Find the best deals across Booking.com, Agoda, Viator, and more' },
+];
+---
+
+<HubLayout
+  title="Start Here"
+  description="First time visiting Korea? Start with these guides to make confident decisions about your trip."
+>
+  <RelatedGuides guides={essentials} heading="The Essentials" />
+  <RelatedGuides guides={planning} heading="Plan Your Route" />
+</HubLayout>

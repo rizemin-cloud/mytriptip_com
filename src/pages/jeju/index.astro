@@ -1,0 +1,43 @@
+---
+import HubLayout from '../../layouts/HubLayout.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.destination === 'jeju' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned Jeju articles:
+// - Where to Stay in Jeju → jeju/where-to-stay
+// - Jeju City vs Seogwipo → jeju/jeju-city-vs-seogwipo
+// - Do You Need a Rental Car in Jeju? → jeju/do-you-need-rental-car
+// - Jeju Car Rental Guide → jeju/car-rental-guide
+
+const crossLinks = [
+  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Compare Myeongdong, Hongdae, Gangnam, and Insadong" },
+  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Find the best platform for your Korea hotel" },
+  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+];
+---
+
+<HubLayout
+  title="Jeju Travel Guide"
+  description="Planning your first trip to Jeju? Decide where to stay, whether you need a rental car, and how to get around the island."
+  breadcrumbs={[{ name: 'Jeju', url: '/jeju/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Jeju Guides" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Jeju guides are coming soon. Start planning your Korea trip with these:</p>
+      <RelatedGuides guides={crossLinks} heading="Helpful Guides" />
+    </div>
+  )}
+</HubLayout>

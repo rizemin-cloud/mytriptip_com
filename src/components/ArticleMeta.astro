@@ -1,0 +1,26 @@
+---
+interface Props {
+  author: string;
+  publishDate: Date;
+  updatedDate?: Date;
+}
+
+const { author, publishDate, updatedDate } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-text-muted mb-6">
+  <span>By <span class="font-medium text-text">{author}</span></span>
+  {updatedDate ? (
+    <span>Updated {formatDate(updatedDate)}</span>
+  ) : (
+    <span>Published {formatDate(publishDate)}</span>
+  )}
+</div>

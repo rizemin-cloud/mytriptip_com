@@ -1,0 +1,38 @@
+---
+import HubLayout from '../layouts/HubLayout.astro';
+import RelatedGuides from '../components/RelatedGuides.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.category === 'where-to-stay' && !data.draft;
+});
+
+const guides = allArticles.map((article) => ({
+  title: article.data.title,
+  href: `/${article.id}/`,
+  description: article.data.description,
+}));
+
+// TODO: Planned where-to-stay articles:
+// - Where to Stay in Busan → busan/where-to-stay
+// - Where to Stay in Jeju → jeju/where-to-stay
+---
+
+<HubLayout
+  title="Where to Stay in Korea"
+  description="Find the best area and hotel for your first trip to Korea. City-by-city guides with honest recommendations."
+  breadcrumbs={[{ name: 'Where to Stay', url: '/where-to-stay/' }]}
+  noindex={guides.length === 0}
+>
+  {guides.length > 0 ? (
+    <RelatedGuides guides={guides} heading="Accommodation Guides" />
+  ) : (
+    <div>
+      <p class="text-text-muted mb-6">Accommodation guides are coming soon. In the meantime:</p>
+      <RelatedGuides guides={[
+        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+      ]} />
+    </div>
+  )}
+</HubLayout>
