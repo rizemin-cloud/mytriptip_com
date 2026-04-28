@@ -12,10 +12,6 @@ const guides = allArticles.map((article) => ({
   href: `/${article.id}/`,
   description: article.data.description,
 }));
-
-// TODO: Planned compare articles:
-// - Viator vs Klook vs KKday → compare/viator-vs-klook-vs-kkday
-// - Everland vs Lotte World → compare/everland-vs-lotte-world
 ---
 
 <HubLayout
@@ -25,13 +21,19 @@ const guides = allArticles.map((article) => ({
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Comparisons" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        These comparison pages focus on real pre-trip decisions: which platform is cheaper, which has better
+        cancellation terms, and when the lowest price is not the safest booking.
+      </p>
+      <RelatedGuides guides={guides} heading="Comparisons" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Comparisons are coming soon. In the meantime:</p>
       <RelatedGuides guides={[
-        { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood" },
-        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+        { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Pick the right neighborhood' },
+        { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected before you land' },
       ]} />
     </div>
   )}

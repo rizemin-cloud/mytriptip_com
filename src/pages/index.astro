@@ -2,17 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DestinationHubGrid from '../components/DestinationHubGrid.astro';
 import RelatedGuides from '../components/RelatedGuides.astro';
+import TrustBox from '../components/TrustBox.astro';
 
 const destinations = [
   {
     title: 'Seoul',
     href: '/seoul/',
-    description: 'Where to stay, airport transfers, top tours, and nightlife for first-time visitors.',
+    description: 'Where to stay, airport transfers, top tours, and realistic first-trip planning.',
   },
   {
     title: 'Busan',
     href: '/busan/',
-    description: 'Beach neighborhoods, KTX from Seoul, and the best hotels in Haeundae.',
+    description: 'Beach neighborhoods, hotel tradeoffs, and practical advice for a short Busan stop.',
   },
 ];
 
@@ -36,7 +37,8 @@ const quickLinks = [
       Your first trip to Korea,<br />figured out.
     </h1>
     <p class="text-lg text-text-muted max-w-2xl mb-10">
-      We help first-time visitors decide where to stay, how to get around, what tours to book, and which eSIM to buy. No fluff — just practical answers.
+      We help first-time visitors decide where to stay, how to get around, what tours to book, and which eSIM to buy.
+      No fluff, just practical answers.
     </p>
 
     <a
@@ -49,5 +51,6 @@ const quickLinks = [
     <DestinationHubGrid destinations={destinations} heading="Choose Your Destination" />
 
     <RelatedGuides guides={quickLinks} heading="Popular Guides" />
+    <TrustBox title="What makes these guides useful" />
   </section>
 </BaseLayout>

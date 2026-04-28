@@ -1,0 +1,21 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = 'Why trust MyTripTip' } = Astro.props;
+---
+
+<section class="mt-12 rounded-xl border border-border bg-surface px-5 py-5">
+  <h2 class="text-lg font-semibold mb-3">{title}</h2>
+  <ul class="space-y-2 text-sm text-text-muted">
+    <li>Each guide is built around one travel decision, not generic destination filler.</li>
+    <li>We show update dates, keep affiliate disclosures visible, and revise pages when details change.</li>
+    <li>We compare official sources, booking platforms, and local travel information before recommending.</li>
+    <li>
+      Read our <a href="/editorial-policy/" class="text-primary hover:underline">Editorial Policy</a>,
+      <a href="/about/" class="text-primary hover:underline"> About</a>, and
+      <a href="/contact/" class="text-primary hover:underline"> Contact</a> pages for details.
+    </li>
+  </ul>
+</section>

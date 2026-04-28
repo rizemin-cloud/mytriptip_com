@@ -13,26 +13,27 @@ const guides = allArticles.map((article) => ({
   description: article.data.description,
 }));
 
-// TODO: Planned itinerary articles:
-// - 4 Days in Seoul → seoul/4-days-itinerary
-// - 2 Days in Busan → busan/2-days-itinerary
-// - Seoul + Busan vs Seoul + Jeju for 7 Days → basics/where-to-stay-7-days
-
 const crossLinks = [
-  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood for your trip" },
-  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
-  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Find the best deal on hotels" },
+  { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Pick the right neighborhood for your trip' },
+  { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected before you land' },
+  { title: 'Booking.com vs Agoda vs Trip.com', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Find the best deal on hotels' },
 ];
 ---
 
 <HubLayout
   title="Korea Itineraries"
-  description="Ready-made itineraries for first-time visitors. 4 days in Seoul, 2 days in Busan, 7-day multi-city routes."
+  description="Ready-made itineraries for first-time visitors. 4 days in Seoul, short city breaks, and practical route planning."
   breadcrumbs={[{ name: 'Itineraries', url: '/itineraries/' }]}
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Itinerary Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        These itineraries are designed to reduce wasted transit time and overplanning. They are meant for travelers
+        who want a realistic first trip, not an impossible checklist.
+      </p>
+      <RelatedGuides guides={guides} heading="Itinerary Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Itinerary guides are coming soon. Start planning your Korea trip with these:</p>

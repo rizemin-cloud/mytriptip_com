@@ -13,27 +13,27 @@ const guides = allArticles.map((article) => ({
   description: article.data.description,
 }));
 
-// TODO: Planned Busan articles:
-// - Where to Stay in Busan → busan/where-to-stay
-// - Best Hotels in Haeundae → busan/best-hotels-haeundae
-// - Seoul to Busan: KTX vs Bus vs Flight → busan/seoul-to-busan
-// - 2 Days in Busan → busan/2-days-itinerary
-
 const crossLinks = [
-  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Compare Myeongdong, Hongdae, Gangnam, and Insadong" },
-  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Find the best platform for your Korea hotel" },
-  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
+  { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Compare Myeongdong, Hongdae, Gangnam, and Insadong' },
+  { title: 'Booking.com vs Agoda vs Trip.com', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Find the best platform for your Korea hotel' },
+  { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected before you land' },
 ];
 ---
 
 <HubLayout
   title="Busan Travel Guide"
-  description="First time in Busan? Find the best area to stay, how to get from Seoul, and a practical 2-day itinerary."
+  description="First time in Busan? Find the best area to stay, how to get from Seoul, and a practical short-trip plan."
   breadcrumbs={[{ name: 'Busan', url: '/busan/' }]}
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Busan Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        Busan gets easier once you pick the right base first. These guides focus on beach areas, city access,
+        and the practical tradeoffs that matter on a short visit.
+      </p>
+      <RelatedGuides guides={guides} heading="Busan Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Busan guides are coming soon. Start planning your Korea trip with these:</p>

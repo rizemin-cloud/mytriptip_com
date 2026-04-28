@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ArticleMeta from '../components/ArticleMeta.astro';
 import AffiliateDisclosure from '../components/AffiliateDisclosure.astro';
+import TrustBox from '../components/TrustBox.astro';
 import { articleSchema } from '../utils/seo';
 import type { BreadcrumbItem } from '../utils/seo';
 
@@ -68,5 +69,6 @@ const schema = articleSchema({
     <div class="prose prose-slate max-w-none">
       <slot />
     </div>
+    <TrustBox title="How we build these guides" />
   </article>
 </BaseLayout>

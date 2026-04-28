@@ -13,26 +13,27 @@ const guides = allArticles.map((article) => ({
   description: article.data.description,
 }));
 
-// TODO: Planned tour articles:
-// - Best DMZ Tours from Seoul → seoul/best-dmz-tours
-// - Best Nami Island Day Trips → seoul/best-nami-island-day-trips
-// - Best Day Trips from Seoul → compare/best-day-trips-from-seoul
-
 const crossLinks = [
-  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood before booking tours" },
-  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Compare hotel booking platforms" },
-  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Stay connected during your tours" },
+  { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Pick the right neighborhood before booking tours' },
+  { title: 'Booking.com vs Agoda vs Trip.com', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Compare hotel booking platforms' },
+  { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Stay connected during your tours' },
 ];
 ---
 
 <HubLayout
   title="Tours & Tickets"
-  description="Book the right tour for your Korea trip. DMZ, Nami Island, day trips, and theme parks — compared and reviewed."
+  description="Book the right tour for your Korea trip. DMZ, Nami Island, day trips, and theme parks compared and reviewed."
   breadcrumbs={[{ name: 'Tours & Tickets', url: '/tours-tickets/' }]}
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Tour Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        These pages focus on the bookings that are easy to get wrong: what is worth reserving in advance,
+        what can wait, and which tour type actually fits a short Korea trip.
+      </p>
+      <RelatedGuides guides={guides} heading="Tour Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Tour guides are coming soon. Start planning your Korea trip with these:</p>

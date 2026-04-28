@@ -12,10 +12,6 @@ const guides = allArticles.map((article) => ({
   href: `/${article.id}/`,
   description: article.data.description,
 }));
-
-// TODO: Planned where-to-stay articles:
-// - Where to Stay in Busan → busan/where-to-stay
-// - Where to Stay in Jeju → jeju/where-to-stay
 ---
 
 <HubLayout
@@ -25,13 +21,19 @@ const guides = allArticles.map((article) => ({
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Accommodation Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        A good hotel base saves time every day. These guides focus on the neighborhoods that actually make a first trip easier,
+        with tradeoffs for budget, nightlife, airport access, and sightseeing.
+      </p>
+      <RelatedGuides guides={guides} heading="Accommodation Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Accommodation guides are coming soon. In the meantime:</p>
       <RelatedGuides guides={[
-        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
-        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+        { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected before you land' },
+        { title: 'Compare Booking Platforms', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Booking.com vs Agoda vs Trip.com' },
       ]} />
     </div>
   )}

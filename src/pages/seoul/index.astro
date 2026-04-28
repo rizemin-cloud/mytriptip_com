@@ -12,29 +12,29 @@ const guides = allArticles.map((article) => ({
   href: `/${article.id}/`,
   description: article.data.description,
 }));
-
-// TODO: Planned Seoul articles (add to guides as they are published):
-// - Best Family Hotels in Seoul → seoul/best-family-hotels
-// - ICN Airport to Seoul → seoul/icn-airport-to-seoul
-// - Best DMZ Tours from Seoul → seoul/best-dmz-tours
-// - 4 Days in Seoul → seoul/4-days-itinerary
 ---
 
 <HubLayout
   title="Seoul Travel Guide"
-  description="Everything a first-time visitor needs to know about Seoul — where to stay, how to get from the airport, top tours, and nightlife."
+  description="Everything a first-time visitor needs to know about Seoul: where to stay, how to get from the airport, top tours, and realistic planning."
   breadcrumbs={[{ name: 'Seoul', url: '/seoul/' }]}
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Seoul Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        Start with accommodation, then lock in airport transport and any time-sensitive tours. These are the Seoul guides
+        that make the biggest difference to a first trip.
+      </p>
+      <RelatedGuides guides={guides} heading="Seoul Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Seoul guides are coming soon. In the meantime, start with these:</p>
       <RelatedGuides guides={[
-        { title: "Where to Stay in Korea", href: "/where-to-stay/", description: "Best areas and hotels by destination" },
-        { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected before you land" },
-        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+        { title: 'Where to Stay in Korea', href: '/where-to-stay/', description: 'Best areas and hotels by destination' },
+        { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected before you land' },
+        { title: 'Compare Booking Platforms', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Booking.com vs Agoda vs Trip.com' },
       ]} />
     </div>
   )}

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import TrustBox from '../components/TrustBox.astro';
 import type { BreadcrumbItem } from '../utils/seo';
 
 interface Props {
@@ -19,5 +20,6 @@ const { title, description, breadcrumbs, noindex = false } = Astro.props;
     <h1 class="text-3xl sm:text-4xl font-bold leading-tight mb-3">{title}</h1>
     <p class="text-lg text-text-muted mb-8 max-w-2xl">{description}</p>
     <slot />
+    <TrustBox />
   </div>
 </BaseLayout>

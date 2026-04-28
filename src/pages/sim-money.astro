@@ -12,10 +12,6 @@ const guides = allArticles.map((article) => ({
   href: `/${article.id}/`,
   description: article.data.description,
 }));
-
-// TODO: Planned SIM & Money articles:
-// - Korea eSIM for Seoul → seoul/esim-for-seoul
-// - T-money Card Guide → basics/t-money-card-guide
 ---
 
 <HubLayout
@@ -25,13 +21,19 @@ const guides = allArticles.map((article) => ({
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="SIM & Money Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        These are the setup guides that make the first day in Korea smoother: how to get data, how to pay for transport,
+        and where travelers usually overspend without noticing.
+      </p>
+      <RelatedGuides guides={guides} heading="SIM & Money Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">SIM & Money guides are coming soon. In the meantime:</p>
       <RelatedGuides guides={[
-        { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood" },
-        { title: "Compare Booking Platforms", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Booking.com vs Agoda vs Trip.com" },
+        { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Pick the right neighborhood' },
+        { title: 'Compare Booking Platforms', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Booking.com vs Agoda vs Trip.com' },
       ]} />
     </div>
   )}

@@ -13,15 +13,10 @@ const guides = allArticles.map((article) => ({
   description: article.data.description,
 }));
 
-// TODO: Planned transport articles:
-// - ICN Airport to Seoul → seoul/icn-airport-to-seoul
-// - Seoul to Busan → busan/seoul-to-busan
-// - T-money Card Guide → basics/t-money-card-guide
-
 const crossLinks = [
-  { title: "Where to Stay in Seoul", href: "/seoul/where-to-stay/", description: "Pick the right neighborhood near transit" },
-  { title: "Korea eSIM vs Pocket WiFi", href: "/basics/esim-vs-pocket-wifi/", description: "Get connected for navigation apps" },
-  { title: "Booking.com vs Agoda vs Trip.com", href: "/compare/booking-vs-agoda-vs-tripdotcom/", description: "Compare hotel booking platforms" },
+  { title: 'Where to Stay in Seoul', href: '/seoul/where-to-stay/', description: 'Pick the right neighborhood near transit' },
+  { title: 'Korea eSIM vs Pocket WiFi', href: '/basics/esim-vs-pocket-wifi/', description: 'Get connected for navigation apps' },
+  { title: 'Booking.com vs Agoda vs Trip.com', href: '/compare/booking-vs-agoda-vs-tripdotcom/', description: 'Compare hotel booking platforms' },
 ];
 ---
 
@@ -32,7 +27,13 @@ const crossLinks = [
   noindex={guides.length === 0}
 >
   {guides.length > 0 ? (
-    <RelatedGuides guides={guides} heading="Transport Guides" />
+    <>
+      <p class="max-w-3xl text-text-muted mb-6">
+        These guides answer the transport questions that create the most friction on a first trip:
+        airport arrival, train cards, and when a more expensive transfer is actually worth paying for.
+      </p>
+      <RelatedGuides guides={guides} heading="Transport Guides" />
+    </>
   ) : (
     <div>
       <p class="text-text-muted mb-6">Transport guides are coming soon. Start planning your Korea trip with these:</p>

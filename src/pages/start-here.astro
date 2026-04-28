@@ -5,7 +5,7 @@ import RelatedGuides from '../components/RelatedGuides.astro';
 const essentials = [
   { title: 'Where to Stay in Seoul', href: '/seoul/', description: 'Pick the right neighborhood and hotel for your budget' },
   { title: 'Korea eSIM vs Pocket WiFi', href: '/sim-money/', description: 'Stay connected from the moment you land' },
-  { title: 'Best Tours & Day Trips', href: '/tours-tickets/', description: 'DMZ, Nami Island, and more — what to book in advance' },
+  { title: 'Best Tours & Day Trips', href: '/tours-tickets/', description: 'DMZ, Nami Island, and more: what to book in advance' },
   { title: 'Getting Around Korea', href: '/transport/', description: 'Trains, buses, T-money cards, and airport transfers' },
 ];
 
@@ -22,6 +22,10 @@ const planning = [
   title="Start Here"
   description="First time visiting Korea? Start with these guides to make confident decisions about your trip."
 >
+  <p class="max-w-3xl text-text-muted mb-6">
+    The fastest way to reduce planning mistakes is to answer a few high-impact questions first:
+    where to stay, how to get from the airport, what to book before you land, and what your trip will realistically cost.
+  </p>
   <RelatedGuides guides={essentials} heading="The Essentials" />
   <RelatedGuides guides={planning} heading="Plan Your Route" />
 </HubLayout>
